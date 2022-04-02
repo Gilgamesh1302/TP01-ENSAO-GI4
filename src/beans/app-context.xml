@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <import resource="app-context-dao.xml" />
+    <bean id="gestionChaiseService" class="com.ensa.gi4.service.impl.GestionChaiseServiceImpl" >
+        <constructor-arg ref="chaiseDao" index="0"/>
+        <constructor-arg ref="factory" index="1" />
+    </bean>
+    <bean id="gestionLivreService" class="com.ensa.gi4.service.impl.GestionLivreServiceImpl" >
+        <constructor-arg ref="livreDao" index="0"/>
+        <constructor-arg ref="factory" index="1" />
+    </bean>
+
+    <bean id="gestionMaterielController" class="com.ensa.gi4.controller.GestionMaterielController">
+        <property name="gestionMaterielService" ref="gestionMaterielService"/>
+    </bean>
+
+    <bean id="gestionMaterielService" class="com.ensa.gi4.service.impl.GestionMaterielServiceImpl">
+        <constructor-arg ref="gestionChaiseService" index="0" />
+        <constructor-arg ref="gestionLivreService" index="1" />
+    </bean>
+
+
+</beans>
